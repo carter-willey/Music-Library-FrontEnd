@@ -85,11 +85,14 @@ class App extends Component {
 
   render() { 
     return ( 
-      <React.Fragment>
+      <div className="containter-fluid">
+        <SearchBar filterSong={this.filterSong} />
+        <div className="row p-5 row-responsive">
         <DisplayTable songs={this.state.currentSongs} deleteSong={this.deleteSong} />
         <CreateSongForm addNewSong={this.addNewSong} />
-        <SearchBar filterSong={this.filterSong} />
-      </React.Fragment>
+        </div>
+        
+      </div>
      );
   }
 }
