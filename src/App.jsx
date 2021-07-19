@@ -9,8 +9,10 @@ class App extends Component {
   constructor(props) {
     super(props);
     this.state = {
-      songs: []
+      allSongs: [],
+      currentSongs: []
     }
+    this.currentCriteria = '';
   }
 
   componentDidMount(){
@@ -18,17 +20,29 @@ class App extends Component {
   }
 
   displayTable = (currentSongArray) => {
-    this.setState({
-      songs: currentSongArray
-    })
+    console.log(this.state.allSongs); // All the songs in our DB
+    let backToAllSongs = this.state.allSongs;
+    if (this.currentCriteria === '') { // If the criteria is blank...
+      this.setState({
+        currentSongs: backToAllSongs // Back to all the songs.
+      })
+    }
+    else {
+      this.setState({
+        currentSongs: currentSongArray // Else, go to the current songs list.
+      })
+    }
   }
 
   makeGetRequest = async () => {
     console.log(this);
     try{
       let response = await axios.get('http://127.0.0.1:8000/music/')
-      let allSongs = response.data
-      this.displayTable(allSongs);
+      let completeListOfSongs = response.data
+      this.setState({
+        allSongs: completeListOfSongs
+      })
+      this.displayTable(completeListOfSongs);
     }
     catch (ex) {
       console.log("error in API Call");
@@ -36,9 +50,10 @@ class App extends Component {
   }
 
   filterSong = (criteria) => {
-    let temp = this.state.songs
+    let temp = this.state.allSongs
+    this.currentCriteria = criteria;
     let filteredSongsArray = []
-    filteredSongsArray = temp.filter(song => song.title === criteria)
+    filteredSongsArray = temp.filter(song => (song.title.includes(criteria)) || (song.artist.includes(criteria)) || (song.album.includes(criteria)) || song.release_date.includes(criteria))
     this.displayTable(filteredSongsArray);
     console.log(this);
   }
@@ -71,7 +86,7 @@ class App extends Component {
   render() { 
     return ( 
       <React.Fragment>
-        <DisplayTable songs={this.state.songs} deleteSong={this.deleteSong} />
+        <DisplayTable songs={this.state.currentSongs} deleteSong={this.deleteSong} />
         <CreateSongForm addNewSong={this.addNewSong} />
         <SearchBar filterSong={this.filterSong} />
       </React.Fragment>
