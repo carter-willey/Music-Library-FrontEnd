@@ -6,6 +6,7 @@ class CreateSongForm extends Component {
     this.state = { 
       title: "",
       artist: "",
+      genre: "",
       album: "",
       release_date: "",
      }
@@ -29,6 +30,8 @@ class CreateSongForm extends Component {
         <input type="text" name="title" onChange={this.handleChange} value={this.state.title} />
         <label>Artist: </label>
         <input type="text" name="artist" onChange={this.handleChange} value={this.state.artist} />
+        <label>Genre: </label>
+        <input type="text" name="genre" onChange={this.handleChange} value={this.state.genre} />
         <label>Album Title: </label>
         <input type="text" name="album" onChange={this.handleChange} value={this.state.album} />
         <label>Song Release Date: </label>
