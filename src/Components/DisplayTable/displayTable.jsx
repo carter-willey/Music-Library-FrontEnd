@@ -6,7 +6,7 @@ const DisplayTable = (props) => {
     <table>
         <thead>
           <tr>
-            <th>Head</th>
+            <th>Music Library</th>
           </tr>
         </thead>
         <tbody>

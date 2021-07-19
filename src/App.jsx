@@ -3,29 +3,44 @@ import React, { Component } from 'react';
 import DisplayTable from './Components/DisplayTable/displayTable';
 import axios from 'axios';
 import CreateSongForm from './Components/CreateSongForm/createSongForm';
+import SearchBar from './Components/SearchBar/searchBar';
 
 class App extends Component {
   constructor(props) {
     super(props);
     this.state = {
       songs: []
-     }
+    }
   }
 
   componentDidMount(){
     this.makeGetRequest();
   }
 
-  async makeGetRequest() {
+  displayTable = (currentSongArray) => {
+    this.setState({
+      songs: currentSongArray
+    })
+  }
+
+  makeGetRequest = async () => {
+    console.log(this);
     try{
       let response = await axios.get('http://127.0.0.1:8000/music/')
-      this.setState({
-        songs: response.data
-      })
+      let allSongs = response.data
+      this.displayTable(allSongs);
     }
     catch (ex) {
       console.log("error in API Call");
     }
+  }
+
+  filterSong = (criteria) => {
+    let temp = this.state.songs
+    let filteredSongsArray = []
+    filteredSongsArray = temp.filter(song => song.title === criteria)
+    this.displayTable(filteredSongsArray);
+    console.log(this);
   }
 
   deleteSong = async number => {
@@ -42,7 +57,7 @@ class App extends Component {
     this.makeGetRequest();
   }
 
-  addNewSong = async newSong =>{
+  addNewSong = async newSong => {
     try{
       let response = await axios.post('http://127.0.0.1:8000/music/', newSong)
       console.log(response.data);
@@ -52,16 +67,19 @@ class App extends Component {
     }
     this.makeGetRequest();
   }
-  
 
   render() { 
     return ( 
       <React.Fragment>
-        <DisplayTable songs={this.state.songs} deleteSong={this.deleteSong}/>
+        <DisplayTable songs={this.state.songs} deleteSong={this.deleteSong} />
         <CreateSongForm addNewSong={this.addNewSong} />
+        <SearchBar filterSong={this.filterSong} />
       </React.Fragment>
      );
   }
 }
  
 export default App;
+
+/*
+ */
