@@ -51,9 +51,9 @@ class App extends Component {
 
   filterSong = (criteria) => {
     let temp = this.state.allSongs
-    this.currentCriteria = criteria;
+    this.currentCriteria = criteria.toLowerCase();
     let filteredSongsArray = []
-    filteredSongsArray = temp.filter(song => (song.title.includes(criteria)) || (song.artist.includes(criteria)) || (song.album.includes(criteria)) || song.release_date.includes(criteria))
+    filteredSongsArray = temp.filter(song => (song.title.toLowerCase().includes(this.currentCriteria)) || (song.artist.toLowerCase().includes(this.currentCriteria)) || (song.album.toLowerCase().includes(this.currentCriteria)) || song.release_date.includes(this.currentCriteria))
     this.displayTable(filteredSongsArray);
     console.log(this);
   }
