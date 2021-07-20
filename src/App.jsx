@@ -4,6 +4,8 @@ import DisplayTable from './Components/DisplayTable/displayTable';
 import axios from 'axios';
 import CreateSongForm from './Components/CreateSongForm/createSongForm';
 import SearchBar from './Components/SearchBar/searchBar';
+import Introduction from './Components/Introduction/introduction';
+import Footer from './Components/Footer/footer';
 
 class App extends Component {
   constructor(props) {
@@ -85,11 +87,24 @@ class App extends Component {
 
   render() { 
     return ( 
-      <div className="containter-fluid">
-        <SearchBar filterSong={this.filterSong} />
-        <div className="row p-5 row-responsive">
-        <DisplayTable songs={this.state.currentSongs} deleteSong={this.deleteSong} />
-        <CreateSongForm addNewSong={this.addNewSong} />
+      <div className="container-fluid">
+        
+        <div className="row row-cols-1 row-cols-sm-1 row-cols-md-1 row-cols-lg-1 p-3">
+          <SearchBar filterSong={this.filterSong} />
+        </div>
+
+        <div className="row row-cols-1 row-cols-sm-1 row-cols-md-1 row-cols-lg-1 p-3">
+          <Introduction />
+        </div>
+        
+        <div className="row justify-content-md-center p-3">
+          <DisplayTable songs={this.state.currentSongs} deleteSong={this.deleteSong} />
+         
+          <CreateSongForm addNewSong={this.addNewSong} />
+        </div>
+
+        <div className="row justify-content-md-center p-2">
+          <Footer />
         </div>
         
       </div>
