@@ -1,22 +1,45 @@
 import React, { Component } from 'react';
 import './displayTable.css'
 import UpdateModal from '../UpdateModal/updateModal';
-import Modal from 'react-modal';
+import axios from 'axios';
 
 class DisplayTable extends Component {
   constructor(props) {
     super(props);
     this.state = { 
-      currentSong: [],
+      currentSong: {
+        id: '',
+        title: '',
+        artist: '',
+        genre: '',
+        album: '',
+        release_date: '' 
+      },
       modalIsOpen: false
      }
   }
 
-setModalIsOpen = () => {
-  this.setState({
-    modalIsOpen: true
-  })
-}
+  setModalIsOpen = (song) => {
+    this.setState({
+      modalIsOpen: true,
+      currentSong: song // song w/ id, artist, album, etc.
+    })
+  }
+
+  updateSong = async song => {
+    try{
+      let response = await axios.put('http://127.0.0.1:8000/music/' + song.id, 
+      {"title": `${song.title}`,
+      "artist": `${song.artist}`,
+      "genre": `${song.genre}`,
+      "album": `${song.album}`,
+      "release_date": `${song.release_date}`,})
+      console.log(response.data);
+    }
+    catch (err){
+      console.log(err);
+    }
+  }
 
   render() { 
     return ( 
@@ -39,24 +62,22 @@ setModalIsOpen = () => {
                 {this.props.songs.map((song) => {
                   return(
                     <React.Fragment>
-                    <tr className="lead" key={song.id}>
-                      <td>{song.title}</td> 
-                      <td>{song.artist}</td>
-                      <td>{song.genre}</td>
-                      <td>{song.album}</td>
-                      <td>{song.release_date}</td>
-                      <td><button type="button" className="btn btn-primary" onClick={() => this.setModalIsOpen()}>Edit</button></td>
-                      <td><button type="button" onClick={() => this.props.deleteSong(song.id) } className="btn btn-danger">Delete</button></td>
-                    </tr>
-                    
-                      </React.Fragment>
+                      <tr className="lead" key={song.id}>
+                        <td>{song.title}</td> 
+                        <td>{song.artist}</td>
+                        <td>{song.genre}</td>
+                        <td>{song.album}</td>
+                        <td>{song.release_date}</td>
+                        <td><button type="button" className="btn btn-primary" onClick={() => this.setModalIsOpen(song)}>Edit</button></td>
+                        <td><button type="button" onClick={() => this.props.deleteSong(song.id) } className="btn btn-danger">Delete</button></td>
+                      </tr>
+                    </React.Fragment>
                   )
                 })}
               </tbody>
             </table>
-            
-          </div>
-          <UpdateModal setModalIsOpen={this.state.modalIsOpen} />  
+            <UpdateModal setModalIsOpen={this.state.modalIsOpen} song={this.state.currentSong} updateSong={this.updateSong} />
+          </div>  
         </React.Fragment>
         
        );
