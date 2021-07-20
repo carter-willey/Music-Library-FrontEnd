@@ -21,6 +21,7 @@ class App extends Component {
     this.makeGetRequest();
   }
 
+
   displayTable = (currentSongArray) => {
     console.log(this.state.allSongs); // All the songs in our DB
     let backToAllSongs = this.state.allSongs;
@@ -60,10 +61,10 @@ class App extends Component {
     console.log(this);
   }
 
-  deleteSong = async number => {
-    console.log(number); // 25, 26, 27, 28
+  deleteSong = async songID => {
+    console.log(songID); // 25, 26, 27, 28
     try{                                             // ?id=25             
-      let response = await axios.delete('http://127.0.0.1:8000/music/' + number) // This line works
+      let response = await axios.delete('http://127.0.0.1:8000/music/' + songID) // This line works
       console.log(response);
     }
     catch (ex) {
@@ -85,10 +86,27 @@ class App extends Component {
     this.makeGetRequest();
   }
 
+  updateSong = async song => {
+    try{
+      let response = await axios.put('http://127.0.0.1:8000/music/' + song.id, 
+      {"title": `${song.title}`,
+      "artist": `${song.artist}`,
+      "genre": `${song.genre}`,
+      "album": `${song.album}`,
+      "release_date": `${song.release_date}`,})
+      console.log(response.data);
+    }
+    catch (err){
+      console.log(err);
+    }
+    this.makeGetRequest();
+  }
+
+
   render() { 
     return ( 
       <div className="container-fluid">
-        
+
         <div className="row row-cols-1 row-cols-sm-1 row-cols-md-1 row-cols-lg-1 p-3">
           <SearchBar filterSong={this.filterSong} />
         </div>
@@ -98,7 +116,7 @@ class App extends Component {
         </div>
         
         <div className="row justify-content-md-center p-3">
-          <DisplayTable songs={this.state.currentSongs} deleteSong={this.deleteSong} />
+          <DisplayTable songs={this.state.currentSongs} updateSong={this.updateSong}  deleteSong={this.deleteSong} />
          
           <CreateSongForm addNewSong={this.addNewSong} />
         </div>
