@@ -12,9 +12,9 @@ class DisplayTable extends Component {
         artist: '',
         genre: '',
         album: '',
-        release_date: '' 
+        release_date: '',
+        modalStatus: false 
       },
-      modalStatus: false
      }
   }
 

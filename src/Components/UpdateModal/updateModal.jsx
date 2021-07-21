@@ -17,43 +17,23 @@ class UpdateModal extends Component {
     }
   }
 
-  componentDidMount = () => {
-    this.setState({
-      id: this.props.song.id,
-      title: this.state.title,
-      artist: this.state.artist,
-      album: this.state.album,
-      genre: this.state.genre,
-      release_date: this.state.release_date
-    })
-  }
-
-  handleChange = (event) =>{
+  handleChange = (event) => {
     this.setState({
       [event.target.name]: event.target.value
     })
   }
 
-  handleSubmit = (event) =>{
+  handleSubmit = (event) => {
     event.preventDefault();
-    this.componentDidMount();
+    let currentId = this.props.song.id
     this.setState({
-      title: this.state.title,
-      artist: this.state.artist,
-      album: this.state.album,
-      genre: this.state.genre,
-      release_date: this.state.release_date,
-      modal: false
+      id: currentId
     })
     this.props.updateSong(this.state)
-    this.handleUpdate();
-  }
-
-  handleUpdate = () => {
     this.props.updateModalStatus(this.state.modal);
   }
 
-  isModalOpen = (checker) =>{
+  isModalOpen = (checker) => {
     /**
      * Checks whether the user has pressed on either "Close" or "Update" inside of render method. Updates
      * the status of the whether the modal is visible via a prop passed down from DisplayTable.jsx called
@@ -100,19 +80,19 @@ class UpdateModal extends Component {
             {/* style attribute end */}  
             <h1>Make Changes Here</h1>
             <form className="row g-3 align-items-center p-2" onSubmit={this.handleSubmit} >
-              <label className="lead d-flex justify-content-center p-2">Song Title: </label>
+              <label className="lead d-flex justify-content-center p-2">Song</label>
                 <input className="bg-light form-control form-control-lg" type="text" name="title" 
                 onChange={this.handleChange} placeholder={this.props.song.title} value={this.state.title} />
-              <label className="lead d-flex justify-content-center p-2">Artist: </label>
+              <label className="lead d-flex justify-content-center p-2">Artist</label>
                 <input className="bg-light form-control form-control-lg" type="text" name="artist"  
                 onChange={this.handleChange} placeholder={this.props.song.artist} value={this.state.artist} />
-              <label className="lead d-flex justify-content-center p-2">Genre: </label>
+              <label className="lead d-flex justify-content-center p-2">Genre</label>
                 <input className="bg-light form-control form-control-lg" type="text" name="genre"  
                 onChange={this.handleChange} placeholder={this.props.song.genre} value={this.state.genre} />
-              <label className="lead d-flex justify-content-center p-2">Album Title: </label>
+              <label className="lead d-flex justify-content-center p-2">Album</label>
                 <input className="bg-light form-control form-control-lg" type="text" name="album"  
                 onChange={this.handleChange} placeholder={this.props.song.album} value={this.state.album} />
-              <label className="lead d-flex justify-content-center p-2">Song Release Date: </label>
+              <label className="lead d-flex justify-content-center p-2">Release Date</label>
                 <input className="bg-light form-control form-control-lg" type="date" name="release_date" 
                 onChange={this.handleChange} placeholder={this.props.song.release_date} value={this.state.release_date} />
               <button className="btn btn-primary" onClick={() => this.isModalOpen(false)} submit="submit">Update</button>

@@ -36,7 +36,7 @@ class App extends Component {
     }
   }
 
-  async makeGetRequest() {
+  makeGetRequest = async () => {
     console.log(this);
     try{
       let response = await axios.get('http://127.0.0.1:8000/music/')
@@ -93,7 +93,7 @@ class App extends Component {
         "artist": `${song.artist}`,
         "genre": `${song.genre}`,
         "album": `${song.album}`,
-        "release_date": `${song.release_date}`
+        "release_date": `${song.release_date}`,
       })
       console.log(response.data); // contains: title, artist, genre, album, release_date for song to update
     }
