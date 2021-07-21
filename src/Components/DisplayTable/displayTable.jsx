@@ -47,7 +47,7 @@ class DisplayTable extends Component {
      */
     return ( 
         <React.Fragment>
-          <div className="col-md-6">
+          <div className="col-md-6 table-responsive">
             <table className="table table-striped table-dark">
               <thead className="align-middle">
                 {/* Table Header */}
