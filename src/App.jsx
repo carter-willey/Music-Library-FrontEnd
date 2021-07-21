@@ -18,10 +18,18 @@ class App extends Component {
   }
 
   componentDidMount = () => {
+    /**
+     * Best place to make API request. As soon as the page is rendered, this will run.
+     */
     this.makeGetRequest();
   }
 
   displayTable = (currentSongArray) => {
+    /**
+     * Takes in songs array and decides whether the current songs should be updated to show
+     * a filtered list of songs or a complete list of songs, based off of the search criteria
+     * in the constructor variable this.currentCriteria.
+     */
     console.log(this.state.allSongs); // All the songs in our DB
     let backToAllSongs = this.state.allSongs;
     if (this.currentCriteria === '') { // If the criteria is blank...
@@ -37,6 +45,13 @@ class App extends Component {
   }
 
   makeGetRequest = async () => {
+    /**
+     * This anonymous/asynchronous function is requesting data from the backend
+     * server to get all the songs in the current list of songs contained inside
+     * of the server. The setState is what makes the render method rerun, 
+     * allowing for new data to populate onto the screen because of the change 
+     * of state.
+     */
     console.log(this);
     try{
       let response = await axios.get('http://127.0.0.1:8000/music/')
@@ -52,6 +67,12 @@ class App extends Component {
   }
 
   filterSong = (criteria) => {
+    /**
+     * This will be working alongside the SearchBar component to return a list of 
+     * songs that are pertinent to the (criteria) being brought in from the SearchBar
+     * component. After filtering through the songs, a an array of new songs will be
+     * found and displayed on the table via this.displayTable(filteredSongsArray).
+     */
     let temp = this.state.allSongs
     this.currentCriteria = criteria.toLowerCase();
     let filteredSongsArray = []
@@ -61,6 +82,12 @@ class App extends Component {
   }
 
   deleteSong = async number => {
+    /**
+     * This method is working alongside the DisplayTable component to find a specific
+     * song id (number), and then deleting it from the backend server. Upon deletion,
+     * the data inside of the table will be rerendered via the this.makeGetRequest at the
+     * end of the method (after the catch).
+     */
     console.log(number); // 25, 26, 27, 28
     try{                                             // ?id=25             
       let response = await axios.delete('http://127.0.0.1:8000/music/' + number) // This line works
@@ -75,6 +102,11 @@ class App extends Component {
   }
 
   addNewSong = async newSong => {
+    /**
+     * This method is working alongside the CreateSongForm component to make a
+     * post request to the backend server to create a new song and then populate 
+     * it onto our current table that is displaying all the songs on the screen.
+     */
     try{
       let response = await axios.post('http://127.0.0.1:8000/music/', newSong)
       console.log(response.data);
@@ -86,6 +118,10 @@ class App extends Component {
   }
 
   updateSong = async song => {
+    /**
+     * This method is going to work alongside DisplayTable and UpdateModal components to update 
+     * a specific song in our database and current songs state inside of App.jsx.
+     */
     try {
       let response = await axios.put('http://127.0.0.1:8000/music/' + song.id, 
       {
@@ -105,6 +141,10 @@ class App extends Component {
   }
 
   render = () => { 
+    /**
+     * LifeCycle: The constructor runs first, then this render method, and finally componentDidMount will run.
+     * After componentDidMount runs, then the new data is populated inside of here.
+     */
     return ( 
       <div className="container-fluid">
         

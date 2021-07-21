@@ -18,18 +18,41 @@ class UpdateModal extends Component {
   }
 
   handleChange = (event) => {
+    /**
+     * Changes the state of the specific variable inside of state, based off of the 
+     * event.target.name. So inside of the form below, there are different properties 
+     * that are attached to the tags. Two of the properties are "name" and "value". 
+     * We use these to allow this.setState to properly change the state of each 
+     * variable inside of state. This is due to the onChange property inside of 
+     * the <input ... onChange...> tag property.  
+     * */
     this.setState({
       [event.target.name]: event.target.value
     })
   }
 
   handleSubmit = (event) => {
+    /**
+     * Once all the changes have been made in handleChange, the <input... onSubmit ...> 
+     * is going to be sending these changes from the current state, back to the 
+     * GrandParent component App method: this.props.updateSong(song). It's also 
+     * passing data back to the Parent component DisplayTable method: 
+     * this.props.updateModalStatus(true or false).
+     */
     event.preventDefault();
     let currentId = this.props.song.id
     this.setState({
       id: currentId
     })
-    this.props.updateSong(this.state)
+    let updatedSong = {
+      id: this.state.id,
+      title: this.state.title,
+      artist: this.state.artist,
+      album: this.state.album,
+      genre: this.state.genre,
+      release_date: this.state.release_date,
+    }
+    this.props.updateSong(updatedSong)
     this.props.updateModalStatus(this.state.modal);
   }
 
@@ -49,6 +72,12 @@ class UpdateModal extends Component {
 
   // const [modalIsOpen, setModalIsOpen] = useState(false);
   render() {
+    /**
+     * Populates a modal that is going to be open whenever the user chooses Edit inside of DisplayTable
+     * component. Once they click on Edit, the only way to get out of the modal is to either update the 
+     * info inside of the current form, or close the modal. Passes information taken in from form back
+     * to this.handleChange and this.handleSubmit to allow for changes to happen to our backend server.
+     */
     return(
       <React.Fragment>
         <div className="App">
@@ -95,7 +124,7 @@ class UpdateModal extends Component {
               <label className="lead d-flex justify-content-center p-2">Release Date</label>
                 <input className="bg-light form-control form-control-lg" type="date" name="release_date" 
                 onChange={this.handleChange} placeholder={this.props.song.release_date} value={this.state.release_date} />
-              <button className="btn btn-primary" onClick={() => this.isModalOpen(false)} submit="submit">Update</button>
+              <button className="btn btn-primary" type="submit" onClick={() => this.isModalOpen(false)}>Update</button>
               <button className="btn btn-danger" onClick={() => this.isModalOpen(false)}>Close</button>
             </form>
           </Modal>

@@ -43,11 +43,12 @@ class DisplayTable extends Component {
   render() { 
     /**
      * Renders a table of songs to with the ability to delete or edit them in a separate, UpdateModal component.
+     * Slowly builds an array of table rows with a map function built into JavaScript. 
      */
     return ( 
         <React.Fragment>
           <div className="col-md-6">
-            <table className="table table-striped table-light">
+            <table className="table table-striped table-dark">
               <thead className="align-middle">
                 {/* Table Header */}
                 <tr className="h6">
@@ -64,25 +65,24 @@ class DisplayTable extends Component {
                 {/* Table Body */}
                 {this.props.songs.map((song) => {
                   return(
-                    <React.Fragment>
-                      <tr className="lead" key={song.id}>
-                        <td>{song.title}</td> 
-                        <td>{song.artist}</td>
-                        <td>{song.genre}</td>
-                        <td>{song.album}</td>
-                        <td>{song.release_date}</td>
-                        <td><button type="button" className="btn btn-primary" onClick={() => this.setModalIsOpen(song)}>Edit</button></td>
-                        <td><button type="button" onClick={() => this.props.deleteSong(song.id) } className="btn btn-danger">Delete</button></td>
-                      </tr>
-                    </React.Fragment>
+                    <tr className="lead" key={song.id}>
+                      <td>{song.title}</td> 
+                      <td>{song.artist}</td>
+                      <td>{song.genre}</td>
+                      <td>{song.album}</td>
+                      <td>{song.release_date}</td>
+                      <td><button type="button" className="btn btn-primary" onClick={() => this.setModalIsOpen(song)}>Edit</button></td>
+                      <td><button type="button" onClick={() => this.props.deleteSong(song.id) } className="btn btn-danger">Delete</button></td>
+                    </tr>
                   )
                 })}
               </tbody>
             </table>
             {/* 
-              Here, the modalStats and currentSong inside of DisplayTable state are being passed down to UpdateModal to manipulate.
+              Here, the modalStatus and currentSong inside of DisplayTable state are being passed down to UpdateModal to manipulate.
               We're also passing down the updateModalStatus method in order to update the modal status to false once we're done 
-              working with the data inside of UpdateModal child component.
+              working with the data inside of UpdateModal child component. We're also passing down the updateSong function from 
+              the Grandfather component: App.
             */}
             <UpdateModal modalStatus={this.state.modalStatus} 
               song={this.state.currentSong} 
