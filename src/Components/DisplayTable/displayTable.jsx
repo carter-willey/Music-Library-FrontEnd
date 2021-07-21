@@ -1,7 +1,6 @@
 import React, { Component } from 'react';
 import './displayTable.css'
 import UpdateModal from '../UpdateModal/updateModal';
-import axios from 'axios';
 
 class DisplayTable extends Component {
   constructor(props) {
@@ -15,39 +14,42 @@ class DisplayTable extends Component {
         album: '',
         release_date: '' 
       },
-      modalIsOpen: false
+      modalStatus: false
      }
   }
 
   setModalIsOpen = (song) => {
+    /**
+     * This will open the modal up and feed this.state.currentSong with song. It will also set the modalStatus to 
+     * true in order to open up the modal.
+     */
     this.setState({
-      modalIsOpen: true,
+      modalStatus: true, // modalIsOpen will be set to true upon clicking 'Edit' below
       currentSong: song // song w/ id, artist, album, etc.
     })
   }
 
-  updateSong = async song => {
-    try{
-      let response = await axios.put('http://127.0.0.1:8000/music/' + song.id, 
-      {"title": `${song.title}`,
-      "artist": `${song.artist}`,
-      "genre": `${song.genre}`,
-      "album": `${song.album}`,
-      "release_date": `${song.release_date}`,})
-      console.log(response.data);
-    }
-    catch (err){
-      console.log(err);
-    }
+  updateModalStatus = currenStatusOfModal => {
+    /**
+     * The status of modalStatus will change to false, thus closing the modal window and taking the user back
+     * to the home screen created by App.jsx file.
+     */
+    this.setState({
+      modalStatus: currenStatusOfModal
+    })
+
   }
 
   render() { 
+    /**
+     * Renders a table of songs to with the ability to delete or edit them in a separate, UpdateModal component.
+     */
     return ( 
         <React.Fragment>
-    
           <div className="col-md-6">
             <table className="table table-striped table-light">
               <thead className="align-middle">
+                {/* Table Header */}
                 <tr className="h6">
                   <th className="p-3">Song Title</th>
                   <th className="p-3">Artist</th>
@@ -59,6 +61,7 @@ class DisplayTable extends Component {
                 </tr>
               </thead>
               <tbody>
+                {/* Table Body */}
                 {this.props.songs.map((song) => {
                   return(
                     <React.Fragment>
@@ -76,7 +79,15 @@ class DisplayTable extends Component {
                 })}
               </tbody>
             </table>
-            <UpdateModal setModalIsOpen={this.state.modalIsOpen} song={this.state.currentSong} updateSong={this.updateSong} />
+            {/* 
+              Here, the modalStats and currentSong inside of DisplayTable state are being passed down to UpdateModal to manipulate.
+              We're also passing down the updateModalStatus method in order to update the modal status to false once we're done 
+              working with the data inside of UpdateModal child component.
+            */}
+            <UpdateModal modalStatus={this.state.modalStatus} 
+              song={this.state.currentSong} 
+              updateSong={this.props.updateSong}
+              updateModalStatus={this.updateModalStatus} />
           </div>  
         </React.Fragment>
         

@@ -17,7 +17,7 @@ class App extends Component {
     this.currentCriteria = '';
   }
 
-  componentDidMount(){
+  componentDidMount = () => {
     this.makeGetRequest();
   }
 
@@ -36,7 +36,7 @@ class App extends Component {
     }
   }
 
-  makeGetRequest = async () => {
+  async makeGetRequest() {
     console.log(this);
     try{
       let response = await axios.get('http://127.0.0.1:8000/music/')
@@ -85,7 +85,26 @@ class App extends Component {
     this.makeGetRequest();
   }
 
-  render() { 
+  updateSong = async song => {
+    try {
+      let response = await axios.put('http://127.0.0.1:8000/music/' + song.id, 
+      {
+        "title": `${song.title}`,
+        "artist": `${song.artist}`,
+        "genre": `${song.genre}`,
+        "album": `${song.album}`,
+        "release_date": `${song.release_date}`
+      })
+      console.log(response.data); // contains: title, artist, genre, album, release_date for song to update
+    }
+    catch (err){
+      console.log(err);
+      alert(`Sorry for the inconvenience. Try submitting one again. ${err}`);
+    }
+    this.makeGetRequest();
+  }
+
+  render = () => { 
     return ( 
       <div className="container-fluid">
         
@@ -98,7 +117,9 @@ class App extends Component {
         </div>
         
         <div className="row justify-content-md-center p-3">
-          <DisplayTable songs={this.state.currentSongs} deleteSong={this.deleteSong} />
+          <DisplayTable songs={this.state.currentSongs} 
+            deleteSong={this.deleteSong}
+            updateSong={this.updateSong} />
          
           <CreateSongForm addNewSong={this.addNewSong} />
         </div>
