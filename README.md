@@ -2,6 +2,16 @@
 
 This project was bootstrapped with [Create React App](https://github.com/facebook/create-react-app).
 
+You can view the frontend of this project on the website below: <br>
+https://ba-calderonmorales.github.io/Music-Library-FrontEnd/
+
+As far as functionality, the website will run, but functionality will be minimal without the backend part of this project running in the background.
+Here is a link to the backend that I created for this project:
+
+You'll need to clone the backend repository, and run the backend server on PyCharm. Then you'll achieve the functionality that 
+my partner and  me were looking for when we created this project: <br>
+https://github.com/BA-CalderonMorales/repo_Music_Library_DjangoREST.git
+
 ## Available Scripts
 
 In the project directory, you can run:
