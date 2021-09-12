@@ -2,9 +2,6 @@
 
 This project was bootstrapped with [Create React App](https://github.com/facebook/create-react-app).
 
-You can view the frontend of this project on the website below: <br>
-https://ba-calderonmorales.github.io/Music-Library-FrontEnd/
-
 As far as functionality, the website will run, but functionality will be minimal without the backend part of this project running in the background.
 Here is a link to the backend that I created for this project:
 
