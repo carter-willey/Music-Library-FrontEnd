@@ -2,6 +2,9 @@
 
 This project was bootstrapped with [Create React App](https://github.com/facebook/create-react-app).
 
+![image](https://user-images.githubusercontent.com/62074841/132972804-3fdf75d1-e89f-4742-a9c9-34ff2ccf607c.png)
+
+
 As far as functionality, the website will run, but functionality will be minimal without the backend part of this project running in the background.
 Here is a link to the backend that I created for this project:
 
