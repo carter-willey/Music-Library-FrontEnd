@@ -87,8 +87,8 @@
 ![image](https://user-images.githubusercontent.com/62074841/133552718-c7fe6b0b-c02b-4983-bac6-70bcdf0f3fc6.png)
 
 <p>
- This project was built by two people, Carter Wiley and me, during our time at DevCodeCamp. We built this web application 
- using React in conjunction with Django REST Framework. It was meant to capture how Django REST Framework and React work I'd 
+ This project was built by two people, Carter Wiley and Brandon Calderon, during our time at DevCodeCamp. We built this web application 
+ using React in conjunction with Django REST Framework. It was meant to capture how Django REST Framework and React work 
  together to provide a user with CRUD (Create, Read, Update, Delete) functionality in order to search for songs within a sleek 
  user interface. This was a great, paired programming experience where we got to use both our analytical skills, as well as 
  our design skills to output a nice looking (and functional) web applicaiton.
