@@ -183,7 +183,7 @@ Distributed under the MIT License. See `LICENSE` for more information.
 <!-- CONTACT -->
 ## Contact
 
-Carter Wiley - [Carter Wiley](https://www.linkedin.com/in/carter-willey) - cjwilley23@gmail.com
+Carter Wiley - [Carter Wiley](https://www.linkedin.com/in/carter-willey) - cjwilley23@gmail.com <br />
 Brandon Calderon-Morales - [@BrandonACalder1](https://twitter.com/BrandonACalder1) - bacm640@gmail.com
 
 Frontend: [Music Library Frontend](https://github.com/BA-CalderonMorales/MusicLibraryProject-FrontEnd)
