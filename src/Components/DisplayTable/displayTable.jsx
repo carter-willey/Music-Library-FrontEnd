@@ -63,19 +63,21 @@ class DisplayTable extends Component {
               </thead>
               <tbody>
                 {/* Table Body */}
-                {this.props.songs.map((song) => {
-                  return(
-                    <tr className="lead" key={song.id}>
-                      <td>{song.title}</td> 
-                      <td>{song.artist}</td>
-                      <td>{song.genre}</td>
-                      <td>{song.album}</td>
-                      <td>{song.release_date}</td>
-                      <td><button type="button" className="btn btn-primary" onClick={() => this.setModalIsOpen(song)}>Edit</button></td>
-                      <td><button type="button" onClick={() => this.props.deleteSong(song.id) } className="btn btn-danger">Delete</button></td>
-                    </tr>
-                  )
-                })}
+                {
+                  this.props.songs.map((song) => {
+                    return(
+                      <tr className="lead" key={song.id}>
+                        <td>{song.title}</td> 
+                        <td>{song.artist}</td>
+                        <td>{song.genre}</td>
+                        <td>{song.album}</td>
+                        <td>{song.release_date}</td>
+                        <td><button type="button" className="btn btn-primary" onClick={() => this.setModalIsOpen(song)}>Edit</button></td>
+                        <td><button type="button" onClick={() => this.props.deleteSong(song.id) } className="btn btn-danger">Delete</button></td>
+                      </tr>
+                    )
+                  })
+                }
               </tbody>
             </table>
             {/* 
